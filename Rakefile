@@ -60,6 +60,10 @@ end
 
 task :minify => ['enchant.min.js']
 
+file 'enchant.js' => ['dev/r.js','dev/require.js','dev/almond.js', 'dev/enchant.js'] do |t|
+    sh 'node dev/r.js -o baseUrl=dev name=almond include=enchant.js out=enchant.js wrap=true optimize=none'
+end
+
 file 'enchant.min.js' => ['enchant.js'] do |t|
     print "generated: #{t.name} ..";
     File.open(t.name, 'w') {|f|
